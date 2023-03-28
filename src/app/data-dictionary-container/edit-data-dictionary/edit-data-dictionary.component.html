@@ -1,1 +1,13 @@
-<button mat-raised-button color="primary" (click)="save()">SAVE</button>
+<form [formGroup]="form" id="dictionary-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Dictionary ID</mat-label>
+    <input matInput placeholder="Dictionary ID" [formControl]="id">
+    <mat-error *ngIf="id.errors">Required</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Dictionary Name</mat-label>
+    <input matInput placeholder="Dictionary Name" [formControl]="name">
+    <mat-error *ngIf="name.errors">Required</mat-error>
+  </mat-form-field>
+</form>
+<button mat-raised-button [disabled]="!form.valid" color="primary" (click)="save()">SAVE</button>
