@@ -1,0 +1,8 @@
+<div class="table-container" *ngIf="!editingDictionary">
+  <h2>Data Dictionaries</h2>
+  <div class="table-header">
+    <button mat-raised-button color="primary" (click)="onCreate()">CREATE</button>
+  </div>
+  <app-data-dictionary-table [dataDictionaries]="dictionaries"></app-data-dictionary-table>
+</div>
+<app-edit-data-dictionary *ngIf="editingDictionary" (onSave)="onSave()"></app-edit-data-dictionary>

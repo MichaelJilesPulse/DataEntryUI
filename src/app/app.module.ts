@@ -12,12 +12,14 @@ import { DataDictionaryContainerComponent } from './data-dictionary-container/da
 import { DataDictionaryTableComponent } from './data-dictionary-container/data-dictionary-table/data-dictionary-table.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { EditDataDictionaryComponent } from './data-dictionary-container/edit-data-dictionary/edit-data-dictionary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DataDictionaryContainerComponent,
-    DataDictionaryTableComponent
+    DataDictionaryTableComponent,
+    EditDataDictionaryComponent
   ],
   imports: [
     BrowserModule,
