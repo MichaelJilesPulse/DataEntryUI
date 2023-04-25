@@ -1,19 +1,9 @@
 <div>
   <mat-list>
-    <mat-list-item>Concept Set Name</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>More Concept Set</mat-list-item>
-    <mat-divider></mat-divider>
-  </mat-list>
+    <span *ngFor="let concept of conceptSets">
+      <mat-list-item>{{concept.name}}</mat-list-item>
+      <mat-divider></mat-divider>
+    </span>
+    </mat-list>
+  <button mat-raised-button color="primary">CREATE</button>
 </div>
-<button mat-raised-button color="primary">CREATE</button>
