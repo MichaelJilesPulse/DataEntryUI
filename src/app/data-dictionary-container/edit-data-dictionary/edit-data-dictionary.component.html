@@ -9,5 +9,11 @@
     <input matInput placeholder="Dictionary Name" [formControl]="name">
     <mat-error *ngIf="name.errors">Required</mat-error>
   </mat-form-field>
+  <app-dd-variable-ref-manager
+    [formArrayName]="'variableRefs'"
+    [ddVariables]="dictionary.variableRefs"
+    (ddVariablesEmitter)="refsChanged($event)"
+  ></app-dd-variable-ref-manager>
+  <mat-error *ngIf="variableRefs.errors">Required</mat-error>
 </form>
 <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="save()">SAVE</button>

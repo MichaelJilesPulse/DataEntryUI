@@ -15,13 +15,19 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { EditDataDictionaryComponent } from './data-dictionary-container/edit-data-dictionary/edit-data-dictionary.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { DdVariableRefManagerComponent } from './data-dictionary-container/edit-data-dictionary/dd-variable-ref-manager/dd-variable-ref-manager.component';
+import {MatIconModule} from '@angular/material/icon';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ConceptSetContainerComponent } from './concept-set-container/concept-set-container.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DataDictionaryContainerComponent,
     DataDictionaryTableComponent,
-    EditDataDictionaryComponent
+    EditDataDictionaryComponent,
+    DdVariableRefManagerComponent,
+    ConceptSetContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,9 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
