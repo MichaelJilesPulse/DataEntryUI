@@ -23,6 +23,7 @@ import { EditConceptSetDialogComponent } from './concept-set-container/edit-conc
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -34,25 +35,26 @@ import {MatSortModule} from '@angular/material/sort';
     ConceptSetContainerComponent,
     EditConceptSetDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        MatListModule,
-        FormsModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        HttpClientModule,
-        MatTableModule,
-        ReactiveFormsModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatIconModule,
-        DragDropModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatSortModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    MatListModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    HttpClientModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatIconModule,
+    DragDropModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatSortModule,
+    MatCheckboxModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

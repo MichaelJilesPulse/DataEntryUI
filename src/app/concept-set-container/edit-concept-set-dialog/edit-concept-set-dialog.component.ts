@@ -9,6 +9,8 @@ import {take} from 'rxjs';
 import {LookupTable} from '../../models/lookup/lookup-table';
 import {LookupService} from '../../services/lookup-service';
 import {MatSort} from '@angular/material/sort';
+import {LookupItem} from '../../models/lookup/lookup-item';
+import {SelectableItem} from '../../models/ui/selectable-item';
 
 @Component({
   selector: 'app-edit-concept-set-dialog',
@@ -24,12 +26,17 @@ export class EditConceptSetDialogComponent implements OnInit {
   originalId: FormControl = new FormControl('');
   published: FormControl = new FormControl('');
 
-  selectedConcepts: MatTableDataSource<Concept>;
-  selectedColumns = ['id', 'defaultLabel', 'sortOrder'];
-  lookupConcepts: MatTableDataSource<Concept>;
+  setConcepts: MatTableDataSource<SelectableItem<Concept>>;
+  setColumns = ['value.omopConceptId', 'value.defaultLabel', 'value.sortOrder'];
+  selectedConcepts: Concept[];
+
+  lookupConcepts: MatTableDataSource<SelectableItem<LookupItem>>;
+  lookupColumns = ['selection','value.omopConceptId', 'value.name'];
+  selectedLookups: Map<string, LookupItem> = new Map<string, LookupItem>();
 
   lookupTables: LookupTable[];
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('selectedSort') selectedSort: MatSort;
+  @ViewChild('lookupSort') lookupSort: MatSort;
 
   constructor(
     public dialogRef: MatDialogRef<EditConceptSetDialogComponent>,
@@ -43,11 +50,42 @@ export class EditConceptSetDialogComponent implements OnInit {
       this.conceptService.getConceptSet({id: this.data.id})
         .pipe(take(1))
         .subscribe(concepts => {
-          this.selectedConcepts = new MatTableDataSource<Concept>(concepts);
-          this.selectedConcepts.sort = this.sort;
+          this.setConcepts = new MatTableDataSource<SelectableItem<Concept>>(
+            concepts.map(concept => new SelectableItem<Concept>(concept))
+          );
+          this.setConcepts.sort = this.selectedSort;
         });
     }
-    this.lookupService.getLookupTables().pipe(take(1)).subscribe(tables => this.lookupTables = tables);
+    this.lookupService.getLookupTables().subscribe(tables => this.lookupTables = tables);
+  }
+
+  add() {
+    this.selectedLookups.forEach((value, key) => {
+      console.log(this.setConcepts.data.some(item => item.value.omopConceptId === key))
+      if (!this.setConcepts.data.some(item => item.value.omopConceptId === key)) {
+        this.setConcepts.data.push(new SelectableItem<Concept>(new Concept(value)));
+      }
+    });
+    this.setConcepts.data = [...this.setConcepts.data];
+  }
+
+  selectLookup(event: any) {
+    const item = event.value;
+    if (event.selected) {
+      this.selectedLookups.set(item.omopConceptId, item);
+    } else {
+      this.selectedLookups.delete(item.omopConceptId);
+    }
+  }
+
+  getLookupConcepts(event: any) {
+    this.selectedLookups.clear();
+    this.lookupService.getLookupItems(event.value).subscribe(items => {
+     this.lookupConcepts = new MatTableDataSource<SelectableItem<LookupItem>>(
+       items.map(item => new SelectableItem<LookupItem>(item))
+     );
+     this.lookupConcepts.sort = this.lookupSort;
+    });
   }
 
 }

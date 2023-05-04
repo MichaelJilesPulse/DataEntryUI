@@ -6,6 +6,8 @@ mat-form-field {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 10%;
+  min-width: 125px;
   button {
     width: 100%;
     margin: 5px;
@@ -13,15 +15,26 @@ mat-form-field {
 }
 
 .concept-table {
-  width: 60%;
+  width: 45%;
+  height: 100%;
+  overflow: scroll;
+  .mat-column-sortOrder {
+    max-width: 10%;
+  }
+  .mat-column-omopConceptId {
+    max-width: 25%;
+  }
 }
 
 .lookup-table {
-  width: 30%;
+  width: 45%;
+  height: 100%;
+  overflow: scroll;
 }
 
 .concept-manager-container {
   display: flex;
+  height: 70%;
   div {
     margin: 10px;
   }

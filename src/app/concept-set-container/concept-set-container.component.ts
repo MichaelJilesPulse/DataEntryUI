@@ -32,6 +32,7 @@ export class ConceptSetContainerComponent implements OnInit {
   openDialog(set: ConceptSet) {
     this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
+      height: '90vh',
       data: set
     });
   }

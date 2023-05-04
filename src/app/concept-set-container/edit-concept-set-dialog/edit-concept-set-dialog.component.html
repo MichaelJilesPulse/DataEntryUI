@@ -33,26 +33,30 @@
 </form>
 <div class="concept-manager-container">
   <div class="concept-table">
-    <mat-table [dataSource]="selectedConcepts" matSort>
-      <ng-container matColumnDef="id">
+    <mat-table #selectedSort='matSort' [dataSource]="setConcepts" matSort>
+      <ng-container matColumnDef="selection">
+        <mat-header-cell *matHeaderCellDef> <mat-checkbox></mat-checkbox></mat-header-cell>
+        <mat-header-cell *matCellDef="let concept"><mat-checkbox [ngModel]="concept.selected"></mat-checkbox></mat-header-cell>
+      </ng-container>
+      <ng-container matColumnDef="value.omopConceptId">
         <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
-        <mat-cell *matCellDef="let concept">{{concept.omopConceptId}}</mat-cell>
+        <mat-cell *matCellDef="let concept">{{concept.value.omopConceptId}}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="defaultLabel">
+      <ng-container matColumnDef="value.defaultLabel">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
-        <mat-cell *matCellDef="let concept">{{concept.defaultLabel}}</mat-cell>
+        <mat-cell *matCellDef="let concept">{{concept.value.defaultLabel}}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="sortOrder">
+      <ng-container matColumnDef="value.sortOrder">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Order</mat-header-cell>
-        <mat-cell *matCellDef="let concept">{{concept.sortOrder}}</mat-cell>
+        <mat-cell *matCellDef="let concept">{{concept.value.sortOrder}}</mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="selectedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: selectedColumns"></mat-row>
+      <mat-header-row *matHeaderRowDef="setColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: setColumns"></mat-row>
     </mat-table>
   </div>
   <div class="concept-button-container">
-    <button mat-raised-button color="primary"><-- ADD</button>
+    <button mat-raised-button color="primary" (click)="add()"><-- ADD</button>
     <button mat-raised-button color="secondary">Remove--></button>
     <br>
     <button mat-raised-button color="primary">Assign Order</button>
@@ -62,10 +66,25 @@
   </div>
   <div class="lookup-table">
     <mat-form-field appearance="fill">
-      <mat-select placeholder="Lookup Tables">
-        <mat-option *ngFor="let table of lookupTables" [value]="table.srcTablename">{{table.srcTablename}}</mat-option>
+      <mat-select placeholder="Lookup Tables" (selectionChange)="getLookupConcepts($event)">
+        <mat-option *ngFor="let table of lookupTables" [value]="table">{{table.srcTablename}}</mat-option>
       </mat-select>
     </mat-form-field>
-<!--    <mat-table [dataSource]="lookupConcepts"></mat-table>-->
+    <mat-table #lookupSort='matSort' [dataSource]="lookupConcepts" matSort>
+      <ng-container matColumnDef="selection">
+        <mat-header-cell *matHeaderCellDef><mat-checkbox></mat-checkbox></mat-header-cell>
+        <mat-cell *matCellDef="let concept"><mat-checkbox [(ngModel)]="concept.selected" (change)="selectLookup(concept)"></mat-checkbox></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="value.omopConceptId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
+        <mat-cell *matCellDef="let concept">{{concept.value.omopConceptId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="value.name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+        <mat-cell *matCellDef="let concept">{{concept.value.name}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="lookupColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: lookupColumns"></mat-row>
+    </mat-table>
   </div>
 </div>
