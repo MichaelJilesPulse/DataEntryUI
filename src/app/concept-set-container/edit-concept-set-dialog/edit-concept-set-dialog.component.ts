@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Concept} from '../../models/concept/concept';
 import {ConceptSet} from '../../models/concept/concept-set';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {ConceptService} from '../../services/concept-service';
@@ -11,6 +11,7 @@ import {LookupService} from '../../services/lookup-service';
 import {MatSort} from '@angular/material/sort';
 import {LookupItem} from '../../models/lookup/lookup-item';
 import {SelectableItem} from '../../models/ui/selectable-item';
+import {AlertDialogComponent} from '../../utilities/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-edit-concept-set-dialog',
@@ -42,7 +43,8 @@ export class EditConceptSetDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditConceptSetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConceptSet,
     private conceptService: ConceptService,
-    private lookupService: LookupService
+    private lookupService: LookupService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -60,13 +62,18 @@ export class EditConceptSetDialogComponent implements OnInit {
   }
 
   add() {
-    this.selectedLookups.forEach((value, key) => {
-      console.log(this.setConcepts.data.some(item => item.value.omopConceptId === key))
-      if (!this.setConcepts.data.some(item => item.value.omopConceptId === key)) {
-        this.setConcepts.data.push(new SelectableItem<Concept>(new Concept(value)));
-      }
-    });
-    this.setConcepts.data = [...this.setConcepts.data];
+    if (this.selectedLookups.size == 0) {
+      this.dialog.open(AlertDialogComponent, {
+        data: 'Please select items from the lookup table on the right'
+      });
+    } else {
+      this.selectedLookups.forEach((value, key) => {
+        if (!this.setConcepts.data.some(item => item.value.omopConceptId === key)) {
+          this.setConcepts.data.push(new SelectableItem<Concept>(new Concept(value)));
+        }
+      });
+      this.setConcepts.data = [...this.setConcepts.data];
+    }
   }
 
   selectLookup(event: any) {

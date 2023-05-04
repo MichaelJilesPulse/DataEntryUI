@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AlertDialogComponent } from './utilities/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     EditDataDictionaryComponent,
     DdVariableRefManagerComponent,
     ConceptSetContainerComponent,
-    EditConceptSetDialogComponent
+    EditConceptSetDialogComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,
