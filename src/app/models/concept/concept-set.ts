@@ -1,3 +1,5 @@
+import {Concept} from './concept';
+
 export class ConceptSet {
   id: string;
   originalId: string;
@@ -7,6 +9,7 @@ export class ConceptSet {
   lookupTable: string;
   description: string;
   sortType: string;
+  concepts: Concept[];
   published: Date;
   assignedTo: string;
   modified: Date;

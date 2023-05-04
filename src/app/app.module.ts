@@ -19,6 +19,10 @@ import { DdVariableRefManagerComponent } from './data-dictionary-container/edit-
 import {MatIconModule} from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ConceptSetContainerComponent } from './concept-set-container/concept-set-container.component';
+import { EditConceptSetDialogComponent } from './concept-set-container/edit-concept-set-dialog/edit-concept-set-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -27,24 +31,28 @@ import { ConceptSetContainerComponent } from './concept-set-container/concept-se
     DataDictionaryTableComponent,
     EditDataDictionaryComponent,
     DdVariableRefManagerComponent,
-    ConceptSetContainerComponent
+    ConceptSetContainerComponent,
+    EditConceptSetDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatListModule,
-    FormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    HttpClientModule,
-    MatTableModule,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatIconModule,
-    DragDropModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatListModule,
+        FormsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        MatTableModule,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatIconModule,
+        DragDropModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatSortModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

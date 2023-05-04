@@ -15,5 +15,6 @@
     (ddVariablesEmitter)="refsChanged($event)"
   ></app-dd-variable-ref-manager>
   <mat-error *ngIf="variableRefs.errors">Required</mat-error>
+
 </form>
 <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="save()">SAVE</button>

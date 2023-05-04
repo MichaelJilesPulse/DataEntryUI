@@ -1,0 +1,71 @@
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <input matInput placeholder="Description">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Assigned To</mat-label>
+    <input matInput placeholder="Assigned To">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>ID</mat-label>
+    <input matInput placeholder="ID">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Original ID</mat-label>
+    <input matInput placeholder="Original ID">
+    <mat-error></mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Published</mat-label>
+    <input matInput placeholder="Published">
+    <mat-error></mat-error>
+  </mat-form-field>
+</form>
+<div class="concept-manager-container">
+  <div class="concept-table">
+    <mat-table [dataSource]="selectedConcepts" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
+        <mat-cell *matCellDef="let concept">{{concept.omopConceptId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="defaultLabel">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+        <mat-cell *matCellDef="let concept">{{concept.defaultLabel}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="sortOrder">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Order</mat-header-cell>
+        <mat-cell *matCellDef="let concept">{{concept.sortOrder}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="selectedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: selectedColumns"></mat-row>
+    </mat-table>
+  </div>
+  <div class="concept-button-container">
+    <button mat-raised-button color="primary"><-- ADD</button>
+    <button mat-raised-button color="secondary">Remove--></button>
+    <br>
+    <button mat-raised-button color="primary">Assign Order</button>
+    <br>
+    <button mat-raised-button color="secondary">Move Up</button>
+    <button mat-raised-button color="secondary">Move Down</button>
+  </div>
+  <div class="lookup-table">
+    <mat-form-field appearance="fill">
+      <mat-select placeholder="Lookup Tables">
+        <mat-option *ngFor="let table of lookupTables" [value]="table.srcTablename">{{table.srcTablename}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+<!--    <mat-table [dataSource]="lookupConcepts"></mat-table>-->
+  </div>
+</div>

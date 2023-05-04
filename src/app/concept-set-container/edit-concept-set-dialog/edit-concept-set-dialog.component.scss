@@ -1,0 +1,28 @@
+mat-form-field {
+  margin-left: 10px;
+}
+.concept-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  button {
+    width: 100%;
+    margin: 5px;
+  }
+}
+
+.concept-table {
+  width: 60%;
+}
+
+.lookup-table {
+  width: 30%;
+}
+
+.concept-manager-container {
+  display: flex;
+  div {
+    margin: 10px;
+  }
+}

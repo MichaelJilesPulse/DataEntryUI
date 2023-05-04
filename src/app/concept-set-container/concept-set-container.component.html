@@ -1,7 +1,7 @@
 <div>
   <mat-list>
     <span *ngFor="let concept of conceptSets">
-      <mat-list-item>{{concept.name}}</mat-list-item>
+      <mat-list-item (dblclick)="openDialog(concept)">{{concept.name}}</mat-list-item>
       <mat-divider></mat-divider>
     </span>
     </mat-list>
