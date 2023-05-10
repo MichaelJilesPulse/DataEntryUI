@@ -1,0 +1,8 @@
+#dictionary-form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  mat-form-field {
+    margin-bottom: 15px;
+  }
+}

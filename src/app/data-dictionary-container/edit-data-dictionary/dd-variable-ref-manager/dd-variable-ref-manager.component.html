@@ -1,0 +1,5 @@
+<div cdkDropList class="dd-ref-list" (cdkDropListDropped)="drop($event)">
+  <div cdkDrag *ngFor="let ref of ddVariables" class="ref-variable">
+    {{ref.id}}
+  </div>
+</div>

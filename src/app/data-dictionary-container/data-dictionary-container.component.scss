@@ -1,0 +1,8 @@
+.table-container {
+  padding: 20px;
+  width: 80%;
+  .table-header {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
