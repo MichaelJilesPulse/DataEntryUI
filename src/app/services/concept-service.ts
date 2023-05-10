@@ -3,7 +3,7 @@ import {ApiClient} from './api-client';
 import {ConceptSet} from '../models/concept/concept-set';
 import {Concept} from '../models/concept/concept';
 import {IdRequest} from '../models/requests/id-request';
-import {Observable} from 'rxjs';
+import {Observable, take} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,22 @@ import {Observable} from 'rxjs';
   }
 
   getConceptSet(set: IdRequest) : Observable<Concept[]> {
-    return this.apiClient.post(this.servicePath + 'get-items', set);
+    return this.apiClient.post(this.servicePath + 'get-items', set).pipe(take(1));
+  }
+
+  createConceptSet(set: ConceptSet) {
+    return this.apiClient.post(this.servicePath + 'create', set).pipe(take(1));
+  }
+
+  updateConceptSet(set: ConceptSet) {
+    return this.apiClient.post(this.servicePath + 'update', set).pipe(take(1));
+  }
+
+  createNewConceptSetVersion(set: ConceptSet) {
+    return this.apiClient.post(this.servicePath + 'create-new-version', set).pipe(take(1));
+  }
+
+  cloneConceptSet(set: ConceptSet) {
+    return this.apiClient.post(this.servicePath + 'clone', set).pipe(take(1));
   }
 }

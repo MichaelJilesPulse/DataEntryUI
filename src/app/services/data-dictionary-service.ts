@@ -11,6 +11,6 @@ import {ApiClient} from './api-client';
   }
 
   getDataDictionaries() {
-    return this.apiClient.post(this.servicePath + 'load-all', null);
+    return this.apiClient.post(this.servicePath + 'get-all', null);
   }
 }

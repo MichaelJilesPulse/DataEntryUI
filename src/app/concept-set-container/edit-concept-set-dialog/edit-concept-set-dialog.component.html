@@ -1,68 +1,76 @@
 <form>
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Name">
-    <mat-error></mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <input matInput placeholder="Description">
-    <mat-error></mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Assigned To</mat-label>
-    <input matInput placeholder="Assigned To">
-    <mat-error></mat-error>
-  </mat-form-field>
-  <br>
-  <mat-form-field appearance="fill">
-    <mat-label>ID</mat-label>
-    <input matInput placeholder="ID">
-    <mat-error></mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Original ID</mat-label>
-    <input matInput placeholder="Original ID">
-    <mat-error></mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Published</mat-label>
-    <input matInput placeholder="Published">
-    <mat-error></mat-error>
-  </mat-form-field>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [formControl]="name">
+      <mat-error *ngIf="name.errors">Name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Description" [formControl]="description"></textarea>
+      <mat-error></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-select placeholder="Sort Type" [formControl]="sortType">
+        <mat-option *ngFor="let type of conceptSortTypes | keyvalue" [value]="type.key">
+          {{type.key}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Assigned To</mat-label>
+      <input matInput placeholder="Assigned To" [formControl]="assignedTo">
+      <mat-error></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="ID" [formControl]="id">
+      <mat-error></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Original ID</mat-label>
+      <input matInput placeholder="Original ID" [formControl]="originalId">
+      <mat-error></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Published</mat-label>
+      <input matInput placeholder="Published" [formControl]="published">
+      <mat-error></mat-error>
+    </mat-form-field>
+  </div>
 </form>
+
 <div class="concept-manager-container">
   <div class="concept-table">
-    <mat-table #selectedSort='matSort' [dataSource]="setConcepts" matSort>
+    <mat-table #selectedSort='matSort' [dataSource]="setConcepts" matSort cdkDropList (cdkDropListDropped)="onListDrop($event)">
       <ng-container matColumnDef="selection">
-        <mat-header-cell *matHeaderCellDef> <mat-checkbox></mat-checkbox></mat-header-cell>
-        <mat-header-cell *matCellDef="let concept"><mat-checkbox [ngModel]="concept.selected"></mat-checkbox></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> <mat-checkbox (change)="selectAllConcepts($event)" [(ngModel)]="allConceptsSelected"></mat-checkbox></mat-header-cell>
+        <mat-header-cell *matCellDef="let concept"><mat-checkbox [(ngModel)]="concept.selected" (change)="selectSetConcept(concept)"></mat-checkbox></mat-header-cell>
       </ng-container>
-      <ng-container matColumnDef="value.omopConceptId">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
         <mat-cell *matCellDef="let concept">{{concept.value.omopConceptId}}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="value.defaultLabel">
+      <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
         <mat-cell *matCellDef="let concept">{{concept.value.defaultLabel}}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="value.sortOrder">
+      <ng-container matColumnDef="order">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Order</mat-header-cell>
         <mat-cell *matCellDef="let concept">{{concept.value.sortOrder}}</mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="setColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: setColumns"></mat-row>
+      <mat-row *matRowDef="let row; columns: setColumns" cdkDrag></mat-row>
     </mat-table>
   </div>
   <div class="concept-button-container">
     <button mat-raised-button color="primary" (click)="add()"><-- ADD</button>
-    <button mat-raised-button color="secondary">Remove--></button>
+    <button mat-raised-button color="secondary" (click)="remove()">Remove--></button>
     <br>
-    <button mat-raised-button color="primary">Assign Order</button>
-    <br>
-    <button mat-raised-button color="secondary">Move Up</button>
-    <button mat-raised-button color="secondary">Move Down</button>
+    <button mat-raised-button color="primary" (click)="assignOrder()">Assign Order</button>
   </div>
   <div class="lookup-table">
     <mat-form-field appearance="fill">
@@ -72,7 +80,7 @@
     </mat-form-field>
     <mat-table #lookupSort='matSort' [dataSource]="lookupConcepts" matSort>
       <ng-container matColumnDef="selection">
-        <mat-header-cell *matHeaderCellDef><mat-checkbox></mat-checkbox></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef><mat-checkbox (change)="selectAllLookups($event)"></mat-checkbox></mat-header-cell>
         <mat-cell *matCellDef="let concept"><mat-checkbox [(ngModel)]="concept.selected" (change)="selectLookup(concept)"></mat-checkbox></mat-cell>
       </ng-container>
       <ng-container matColumnDef="value.omopConceptId">
@@ -87,4 +95,11 @@
       <mat-row *matRowDef="let row; columns: lookupColumns"></mat-row>
     </mat-table>
   </div>
+</div>
+<div class="actions-container">
+  <button mat-raised-button color="primary" (click)="createConceptSet()">CREATE</button>
+  <button mat-raised-button color="primary" (click)="updateConceptSet()">UPDATE</button>
+  <button mat-raised-button color="primary" (click)="createNewVersion()">NEW VERSION</button>
+  <button mat-raised-button color="primary" (click)="cloneConceptSet()">CLONE</button>
+  <button mat-raised-button color="secondary" (click)="publishConceptSet()">PUBLISH</button>
 </div>

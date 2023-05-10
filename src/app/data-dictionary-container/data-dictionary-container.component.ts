@@ -13,7 +13,7 @@ import {MatPaginator} from '@angular/material/paginator';
 export class DataDictionaryContainerComponent implements OnInit {
 
   public dictionaries: DataDictionary[];
-  editingDictionary = true;
+  editingDictionary = false;
 
   constructor(private dictService: DataDictionaryService) { }
 

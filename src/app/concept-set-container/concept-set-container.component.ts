@@ -22,14 +22,7 @@ export class ConceptSetContainerComponent implements OnInit {
       .subscribe(resp => this.conceptSets = resp);
   }
 
-  onCreate() {
-    this.dialog.open(EditConceptSetDialogComponent, {
-      width: '500px',
-      data: null
-    });
-  }
-
-  openDialog(set: ConceptSet) {
+  openDialog(set: ConceptSet | null) {
     this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
       height: '90vh',
