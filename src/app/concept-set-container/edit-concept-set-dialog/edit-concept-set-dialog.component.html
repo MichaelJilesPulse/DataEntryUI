@@ -73,27 +73,39 @@
     <button mat-raised-button color="primary" (click)="assignOrder()">Assign Order</button>
   </div>
   <div class="lookup-table">
-    <mat-form-field appearance="fill">
-      <mat-select placeholder="Lookup Tables" (selectionChange)="getLookupConcepts($event)">
-        <mat-option *ngFor="let table of lookupTables" [value]="table">{{table.srcTablename}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-table #lookupSort='matSort' [dataSource]="lookupConcepts" matSort>
+    <div style="display: flex; justify-content: space-between">
+      <mat-form-field appearance="fill">
+        <mat-select placeholder="Lookup Tables" (selectionChange)="getLookupConcepts($event)" [(ngModel)]="currentLookupTable">
+          <mat-option *ngFor="let table of lookupTables" [value]="table">{{table.srcTablename}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput  [(ngModel)]="searchQuery" (input)="this.searchLookups()"/>
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="lookupConcepts">
       <ng-container matColumnDef="selection">
         <mat-header-cell *matHeaderCellDef><mat-checkbox (change)="selectAllLookups($event)"></mat-checkbox></mat-header-cell>
         <mat-cell *matCellDef="let concept"><mat-checkbox [(ngModel)]="concept.selected" (change)="selectLookup(concept)"></mat-checkbox></mat-cell>
       </ng-container>
       <ng-container matColumnDef="value.omopConceptId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
         <mat-cell *matCellDef="let concept">{{concept.value.omopConceptId}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="value.name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
         <mat-cell *matCellDef="let concept">{{concept.value.name}}</mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="lookupColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: lookupColumns"></mat-row>
     </mat-table>
+    <mat-paginator
+      #lookupPaginator
+      (page)="onLookupPage($event)"
+      [length]="this.lookupLength"
+      hidePageSize
+    ></mat-paginator>
   </div>
 </div>
 <div class="actions-container">

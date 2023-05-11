@@ -15,6 +15,8 @@ import {AlertDialogComponent} from '../../utilities/alert-dialog/alert-dialog.co
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ConceptSetSortType} from '../../enums/concept-set-sort-type';
 import {Constants} from '../../constants/constants';
+import {SearchLookupTableRequest} from '../../models/requests/search-lookup-table-request';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-edit-concept-set-dialog',
@@ -41,10 +43,14 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
   lookupConcepts: MatTableDataSource<SelectableItem<LookupItem>>;
   lookupColumns = ['selection','value.omopConceptId', 'value.name'];
   selectedLookups: Map<string, LookupItem> = new Map<string, LookupItem>();
+  @ViewChild('lookupPaginator') lookupPaginator: MatPaginator;
+  lookupLength: number;
 
   lookupTables: LookupTable[];
+  currentLookupTable: LookupTable;
   @ViewChild('selectedSort') selectedSort: MatSort;
-  @ViewChild('lookupSort') lookupSort: MatSort;
+
+  searchQuery: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<EditConceptSetDialogComponent>,
@@ -169,14 +175,34 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onLookupPage(event: PageEvent) {
+    let req: SearchLookupTableRequest =  {
+      table: this.currentLookupTable,
+      searchQuery: this.searchQuery,
+      itemRequested: this.lookupPaginator.pageSize,
+      currentPage: event.pageIndex
+    };
+
+    this.lookupPaginator.pageIndex = event.pageIndex;
+
+    this.lookupService.getLookupItems(req).subscribe(items => {
+      this.lookupConcepts = new MatTableDataSource<SelectableItem<LookupItem>>(
+        items.conceptItems.map(item => new SelectableItem<LookupItem>(item))
+      );
+      this.lookupLength = items.resultCount;
+      this.lookupPaginator.length = items.resultCount;
+    });
+    this.selectedLookups.clear();
+  }
+
   getLookupConcepts(event: any) {
     this.selectedLookups.clear();
-    this.lookupService.getLookupItems(event.value).subscribe(items => {
-     this.lookupConcepts = new MatTableDataSource<SelectableItem<LookupItem>>(
-       items.map(item => new SelectableItem<LookupItem>(item))
-     );
-     this.lookupConcepts.sort = this.lookupSort;
-    });
+    this.searchQuery = '';
+    this.onLookupPage({length: this.lookupPaginator.length, pageSize: this.lookupPaginator.pageSize, pageIndex: 0});
+  }
+
+  searchLookups() {
+    this.onLookupPage({length: this.lookupPaginator.length, pageSize: this.lookupPaginator.pageSize, pageIndex: this.lookupPaginator.pageIndex});
   }
 
   assignOrder() {
