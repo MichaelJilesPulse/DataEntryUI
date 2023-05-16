@@ -57,7 +57,7 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
         conceptSet: ref,
         ddVariableId: '',
         omopConceptId: '',
-        publiched: new Date(),
+        published: undefined,
         modifiedBy: Constants.userId,
         createdBy: Constants.userId,
         created: new Date(),

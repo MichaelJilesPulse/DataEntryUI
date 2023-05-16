@@ -1,10 +1,18 @@
+div {
+  width: 75%;
+}
+
 form {
   mat-form-field, mat-slide-toggle {
-    width: 45%;
-    padding: 15px;
+    width: 49%;
+    padding-right: 10px;
     textarea {
       height: 98px;
       max-height: 98px;
     }
   }
+}
+
+.concept-set-ref-container {
+  width: 50%;
 }

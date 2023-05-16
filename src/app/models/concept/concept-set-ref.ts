@@ -5,7 +5,7 @@ export class ConceptSetRef {
   conceptSet: ConceptSet;
   ddVariableId: string;
   omopConceptId: string;
-  publiched: Date;
+  published?: Date;
   modifiedBy: string;
   createdBy: string;
   created: Date;

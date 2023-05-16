@@ -51,11 +51,13 @@
       <mat-label>Control Options</mat-label>
       <input [formControl]="controlOptions" matInput />
     </mat-form-field>
-    <app-concept-set-ref-manager
-      [conceptSets]="this.variable.responseConceptSets"
-      (conceptSetsEmitter)="updateConceptSetRefs($event)"
-      [formControl]="conceptSetRefs"
-    ></app-concept-set-ref-manager>
+    <div class="concept-set-ref-container">
+      <app-concept-set-ref-manager
+        [conceptSets]="this.variable.responseConceptSets"
+        (conceptSetsEmitter)="updateConceptSetRefs($event)"
+        [formControl]="conceptSetRefs"
+      ></app-concept-set-ref-manager>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Initializer</mat-label>
       <textarea matInput [formControl]="initializer"></textarea>

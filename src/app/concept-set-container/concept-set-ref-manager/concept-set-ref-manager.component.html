@@ -1,7 +1,10 @@
 <div>
   <h1>Concept Set Refs</h1>
   <mat-list>
-    <mat-list-item *ngFor="let ref of conceptSets" (dblclick)="openConceptSetViewer(ref.conceptSet)">{{ref.conceptSet.name}}</mat-list-item>
+    <span *ngFor="let ref of conceptSets">
+       <mat-list-item (dblclick)="openConceptSetViewer(ref.conceptSet)">{{ref.conceptSet.name}}</mat-list-item>
+    <mat-divider></mat-divider>
+    </span>
   </mat-list>
   <button mat-raised-button color="primary" (click)="pickConceptSet()">PICK</button>
 </div>
