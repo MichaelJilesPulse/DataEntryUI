@@ -1,0 +1,26 @@
+<div>
+  <span>
+    <h2>Concepts</h2>
+    <mat-list>
+    <span *ngFor="let concept of conceptSets">
+      <mat-list-item
+        (click)="selectConcept(concept)"
+        [ngClass]="concept.id === selectedConcept?.id ? 'selected' : ''">
+          {{concept.name}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </span>
+    </mat-list>
+  </span>
+  <span>
+  <h2>Concept Items</h2>
+    <mat-list *ngIf="selectedConcept !== null && selectedConcept !== undefined">
+      <span *ngFor="let concept of selectedConcept.items">
+        <mat-list-item style="cursor: unset">{{concept.defaultLabel}}</mat-list-item>
+        <mat-divider></mat-divider>
+      </span>
+    </mat-list>
+  </span>
+</div>
+<button mat-raised-button color="primary" (click)="onSelect()">SELECT</button>
+<button mat-raised-button color="secondary" (click)="createNewConceptSet()">CREATE</button>

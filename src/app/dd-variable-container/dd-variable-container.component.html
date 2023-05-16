@@ -1,0 +1,76 @@
+<div>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [formControl]="name" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Assigned To</mat-label>
+      <input matInput [formControl]="assignedTo" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Variable Name</mat-label>
+      <input matInput [formControl]="variableName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>ID</mat-label>
+      <input matInput [formControl]="id" />
+    </mat-form-field>
+    <mat-slide-toggle [formControl]="required">Required</mat-slide-toggle>
+    <mat-form-field appearance="fill">
+      <mat-label>Original ID</mat-label>
+      <input matInput [formControl]="originalId" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Response Type</mat-label>
+      <mat-select [formControl]="responseType">
+        <mat-option>Text</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Length</mat-label>
+      <input matInput [formControl]="length" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Storage</mat-label>
+      <mat-select [formControl]="storage">
+        <mat-option>allergy</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Published</mat-label>
+      <input matInput [formControl]="published" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Control Type</mat-label>
+      <mat-select [formControl]="controlType">
+        <mat-option>thing</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Control Options</mat-label>
+      <input [formControl]="controlOptions" matInput />
+    </mat-form-field>
+    <app-concept-set-ref-manager
+      [conceptSets]="this.variable.responseConceptSets"
+      (conceptSetsEmitter)="updateConceptSetRefs($event)"
+      [formControl]="conceptSetRefs"
+    ></app-concept-set-ref-manager>
+    <mat-form-field appearance="fill">
+      <mat-label>Initializer</mat-label>
+      <textarea matInput [formControl]="initializer"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Prologue</mat-label>
+      <textarea matInput [formControl]="prologue"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Epilogue</mat-label>
+      <textarea matInput [formControl]="epilogue"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput [formControl]="notes"></textarea>
+    </mat-form-field>
+  </form>
+</div>

@@ -12,7 +12,7 @@ export class DdVariable {
   required: number;
   formControlType: string;
   formControlOptions: string;
-  responseConceptSets: ConceptSetRef[];
+  responseConceptSets: ConceptSetRef[] = [];
   responseDataType: string;
   responseDataLength: number;
   baseInitializer: string;
