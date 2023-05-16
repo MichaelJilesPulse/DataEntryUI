@@ -225,23 +225,23 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
   createConceptSet() {
     let req = this.buildConceptSet();
 
-    this.conceptService.createConceptSet(req).subscribe(thing => console.log(thing));
+    this.conceptService.createConceptSet(req).subscribe(thing => this.dialogRef.close(thing));
   }
 
   updateConceptSet() {
     let req = this.buildConceptSet();
     req.createdBy = this.data.createdBy;
-    this.conceptService.updateConceptSet(req).subscribe(thing => console.log(thing));
+    this.conceptService.updateConceptSet(req).subscribe(thing => this.dialogRef.close(thing));
   }
 
   createNewVersion() {
     let req = this.buildConceptSet();
-    this.conceptService.createNewConceptSetVersion(req).subscribe(thing => console.log(thing));
+    this.conceptService.createNewConceptSetVersion(req).subscribe(thing => this.dialogRef.close(thing));
   }
 
   cloneConceptSet() {
     let req = this.buildConceptSet();
-    this.conceptService.cloneConceptSet(req).subscribe(thing => console.log(thing));
+    this.conceptService.cloneConceptSet(req).subscribe(thing => this.dialogRef.close(thing));
   }
 
   publishConceptSet() {
