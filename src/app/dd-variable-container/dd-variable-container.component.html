@@ -1,5 +1,5 @@
 <div>
-  <form>
+  <form [formGroup]="form">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <input matInput [formControl]="name" />
@@ -23,7 +23,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Response Type</mat-label>
-      <mat-select [formControl]="responseType">
+      <mat-select [formControl]="responseType" [value]="'Text'">
         <mat-option>Text</mat-option>
       </mat-select>
     </mat-form-field>
@@ -33,7 +33,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Storage</mat-label>
-      <mat-select [formControl]="storage">
+      <mat-select [formControl]="storage" [value]="'allergy'">
         <mat-option>allergy</mat-option>
       </mat-select>
     </mat-form-field>
@@ -43,7 +43,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Control Type</mat-label>
-      <mat-select [formControl]="controlType">
+      <mat-select [formControl]="controlType" [value]="'thing'">
         <mat-option>thing</mat-option>
       </mat-select>
     </mat-form-field>
@@ -51,11 +51,23 @@
       <mat-label>Control Options</mat-label>
       <input [formControl]="controlOptions" matInput />
     </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Longitudinal Type</mat-label>
+      <mat-select [formControl]="longitudinalType">
+        <mat-option *ngFor="let type of longitudinalTypes" [value]="type">{{longitudinalTypesEnum[type]}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="isFollowupType()">
+      <app-longitudinal-period-manager
+        [formControlName]="'longitudinalPeriods'"
+        [periods]="this.variable.longitudinalPeriods">
+      </app-longitudinal-period-manager>
+    </div>
     <div class="concept-set-ref-container">
       <app-concept-set-ref-manager
         [conceptSets]="this.variable.responseConceptSets"
         (conceptSetsEmitter)="updateConceptSetRefs($event)"
-        [formControl]="conceptSetRefs"
+        [formArrayName]="'conceptSetRefs'"
       ></app-concept-set-ref-manager>
     </div>
     <mat-form-field appearance="fill">
@@ -75,4 +87,11 @@
       <textarea matInput [formControl]="notes"></textarea>
     </mat-form-field>
   </form>
+  <div class="actions-container">
+    <button mat-raised-button color="primary" (click)="create()">CREATE</button>
+    <button mat-raised-button color="primary" >UPDATE</button>
+    <button mat-raised-button color="primary" >NEW VERSION</button>
+    <button mat-raised-button color="primary" >CLONE</button>
+    <button mat-raised-button color="secondary">PUBLISH</button>
+  </div>
 </div>

@@ -23,7 +23,11 @@ export class ConceptSetPickerComponent implements OnInit {
   }
 
   selectConcept(concept: ConceptSet) {
-    this.conceptService.getConceptSet({id: concept.id}).subscribe(result => this.selectedConcept = {...concept, items: result});
+    console.log(concept);
+    this.conceptService.getConceptSet({id: concept.id}).subscribe(result => {
+      this.selectedConcept = {...concept, items: result};
+      console.log(this.selectedConcept);
+    });
   }
 
   createNewConceptSet() {

@@ -16,3 +16,11 @@ form {
 .concept-set-ref-container {
   width: 50%;
 }
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  button {
+    margin-right: 20px;
+  }
+}

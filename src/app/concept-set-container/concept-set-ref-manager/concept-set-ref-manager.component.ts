@@ -28,6 +28,7 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
   }
 
   registerOnChange(fn: any): void {
+    console.log('thing');
     this.conceptSetsEmitter.emit(this.conceptSets);
   }
 

@@ -29,6 +29,7 @@ import { DdVariableContainerComponent } from './dd-variable-container/dd-variabl
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ConceptSetPickerComponent } from './concept-set-container/concept-set-picker/concept-set-picker.component';
 import { ConceptSetRefManagerComponent } from './concept-set-container/concept-set-ref-manager/concept-set-ref-manager.component';
+import { LongitudinalPeriodManagerComponent } from './dd-variable-container/longitudinal-period-manager/longitudinal-period-manager.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ConceptSetRefManagerComponent } from './concept-set-container/concept-s
     AlertDialogComponent,
     DdVariableContainerComponent,
     ConceptSetPickerComponent,
-    ConceptSetRefManagerComponent
+    ConceptSetRefManagerComponent,
+    LongitudinalPeriodManagerComponent
   ],
     imports: [
         BrowserModule,
