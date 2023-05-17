@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ControlValueAccessor} from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ConceptSet} from '../../models/concept/concept-set';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatDialog} from '@angular/material/dialog';
@@ -12,15 +12,24 @@ import {take} from 'rxjs';
 @Component({
   selector: 'app-concept-set-ref-manager',
   templateUrl: './concept-set-ref-manager.component.html',
-  styleUrls: ['./concept-set-ref-manager.component.scss']
+  styleUrls: ['./concept-set-ref-manager.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: ConceptSetRefManagerComponent,
+      multi: true
+    }
+  ]
 })
 export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   conceptSets: ConceptSetRef[] = [];
 
-  @Output()
-  conceptSetsEmitter = new EventEmitter<ConceptSetRef[]>();
+  onChange = (conceptSets: ConceptSetRef[]) => {};
+  onTouch = () => {};
+  touched = false;
+  disabled = false;
 
   constructor(public dialog: MatDialog) { }
 
@@ -28,14 +37,19 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
   }
 
   registerOnChange(fn: any): void {
-    console.log('thing');
-    this.conceptSetsEmitter.emit(this.conceptSets);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
+    this.onTouch = fn;
   }
 
   writeValue(obj: any): void {
+    this.conceptSets = obj;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
   }
 
   openConceptSetViewer(set: ConceptSet) {
@@ -53,18 +67,29 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
     });
 
     ref.afterClosed().pipe(take(1)).subscribe(ref => {
-      this.conceptSets.push({
-        id: '',
-        conceptSet: ref,
-        ddVariableId: '',
-        omopConceptId: '',
-        published: undefined,
-        modifiedBy: Constants.userId,
-        createdBy: Constants.userId,
-        created: new Date(),
-        modified: new Date()
-      });
+      this.markAsTouched();
+      if (!this.disabled) {
+        this.conceptSets.push({
+          id: '',
+          conceptSet: ref,
+          ddVariableId: '',
+          omopConceptId: '',
+          published: undefined,
+          modifiedBy: Constants.userId,
+          createdBy: Constants.userId,
+          created: new Date(),
+          modified: new Date()
+        });
+        this.onChange(this.conceptSets);
+      }
     });
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouch();
+      this.touched = true;
+    }
   }
 
 }

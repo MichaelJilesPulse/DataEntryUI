@@ -30,6 +30,18 @@ export class DdVariableContainerComponent implements OnInit {
     LongitudinalType.START_FOLLOWUP_END
   ];
 
+  formControlTypes = [
+    'dropdown'
+  ];
+
+  storageTypes = [
+    {tablename: 'overthere'}
+  ];
+
+  responseTypes = [
+    'selection'
+  ];
+
   name: FormControl = new FormControl('', Validators.required);
   variableName: FormControl = new FormControl('', Validators.required);
   assignedTo: FormControl = new FormControl('');
@@ -76,10 +88,6 @@ export class DdVariableContainerComponent implements OnInit {
 
   }
 
-  updateConceptSetRefs($event: ConceptSetRef[]) {
-    this.variable.responseConceptSets = $event.map(ref => { return {...ref, ddVariableId: this.variable.id}});
-  }
-
   isFollowupType() {
     return FOLLOWUP_TYPES.some(type => type === this.longitudinalType.value);
   }
@@ -112,12 +120,6 @@ export class DdVariableContainerComponent implements OnInit {
   }
 
   create() {
-    console.log(this.longitudinalPeriods.value);
-    // this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => console.log(resp));
-  }
-
-  setLongitudinalPeriods($event: LongitudinalPeriod[]) {
-    console.log($event);
-    this.longitudinalPeriods.setValue($event)
+    this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => console.log(resp));
   }
 }

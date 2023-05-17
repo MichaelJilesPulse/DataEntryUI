@@ -23,8 +23,8 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Response Type</mat-label>
-      <mat-select [formControl]="responseType" [value]="'Text'">
-        <mat-option>Text</mat-option>
+      <mat-select [formControl]="responseType">
+        <mat-option *ngFor="let type of responseTypes" [value]="type">{{type}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -33,8 +33,8 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Storage</mat-label>
-      <mat-select [formControl]="storage" [value]="'allergy'">
-        <mat-option>allergy</mat-option>
+      <mat-select [formControl]="storage">
+        <mat-option *ngFor="let thing of storageTypes" [value]="thing">{{thing.tablename}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -43,8 +43,8 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Control Type</mat-label>
-      <mat-select [formControl]="controlType" [value]="'thing'">
-        <mat-option>thing</mat-option>
+      <mat-select [formControl]="controlType">
+        <mat-option *ngFor="let type of formControlTypes" [value]="type">{{type}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -66,8 +66,7 @@
     <div class="concept-set-ref-container">
       <app-concept-set-ref-manager
         [conceptSets]="this.variable.responseConceptSets"
-        (conceptSetsEmitter)="updateConceptSetRefs($event)"
-        [formArrayName]="'conceptSetRefs'"
+        [formControl]="conceptSetRefs"
       ></app-concept-set-ref-manager>
     </div>
     <mat-form-field appearance="fill">
