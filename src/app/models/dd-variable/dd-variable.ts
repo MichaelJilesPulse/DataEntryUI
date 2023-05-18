@@ -2,6 +2,7 @@ import {StorageLocation} from './storage-location';
 import {ConceptSetRef} from '../concept/concept-set-ref';
 import {LongitudinalType} from '../../enums/longitudinal-type';
 import {LongitudinalPeriod} from './longitudinal-period';
+import {RespondentTypeRef} from './respondent-type-ref';
 
 export class DdVariable {
   id: string;
@@ -10,6 +11,7 @@ export class DdVariable {
   storageLocation: StorageLocation;
   longitudinalType: LongitudinalType
   longitudinalPeriods: LongitudinalPeriod[] = [];
+  respondentTypeRefs: RespondentTypeRef[] = [];
   localVariableName: string;
   required: number;
   formControlType: string;

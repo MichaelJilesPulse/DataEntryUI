@@ -7,6 +7,8 @@ import {FOLLOWUP_TYPES, LongitudinalType} from '../enums/longitudinal-type';
 import {LongitudinalPeriod} from '../models/dd-variable/longitudinal-period';
 import {DdVariableService} from '../services/dd-variable-service';
 import {Constants} from '../constants/constants';
+import {RespondentType} from '../enums/respondent-type';
+import {RespondentTypeRef} from '../models/dd-variable/respondent-type-ref';
 
 @Component({
   selector: 'app-dd-variable-container',
@@ -18,7 +20,7 @@ export class DdVariableContainerComponent implements OnInit {
   @Input()
   variable: DdVariable = new DdVariable();
 
-  longitudinalTypesEnum =LongitudinalType;
+  longitudinalTypesEnum = LongitudinalType;
 
   longitudinalTypes = [
     LongitudinalType.START,
@@ -29,15 +31,23 @@ export class DdVariableContainerComponent implements OnInit {
     LongitudinalType.FOLLOWUP_END,
     LongitudinalType.START_FOLLOWUP_END
   ];
-
+  respondentTypesEnum = RespondentType;
+  respondentTypes = [
+    RespondentType.participant,
+    RespondentType.proxy,
+    RespondentType.clinician,
+    RespondentType.anyClinical,
+    RespondentType.datafeed,
+    RespondentType.greenlight,
+    RespondentType.other,
+    RespondentType.any
+  ]
   formControlTypes = [
     'dropdown'
   ];
-
   storageTypes = [
     {tablename: 'overthere'}
   ];
-
   responseTypes = [
     'selection'
   ];
@@ -48,6 +58,7 @@ export class DdVariableContainerComponent implements OnInit {
   id: FormControl = new FormControl('');
   originalId: FormControl = new FormControl('');
   published: FormControl = new FormControl('');
+  respondentType = new FormControl<RespondentType[]>([]);
   longitudinalType = new FormControl<LongitudinalType | undefined>(undefined);
   longitudinalPeriods = new FormControl<LongitudinalPeriod[]>([]);
   conceptSetRefs = new FormControl<ConceptSetRef[]>([]);
@@ -72,6 +83,7 @@ export class DdVariableContainerComponent implements OnInit {
     published: this.published,
     controlType: this.controlType,
     controlOptions: this.controlOptions,
+    respondentType: this.respondentType,
     longitudinalType: this.longitudinalType,
     longitudinalPeriods: this.longitudinalPeriods,
     required: this.required,
@@ -105,6 +117,7 @@ export class DdVariableContainerComponent implements OnInit {
       localVariableName: this.variableName.value,
       longitudinalPeriods: this.longitudinalPeriods.value!,
       longitudinalType: this.longitudinalType.value!,
+      respondentTypeRefs: this.getResponseTypes(),
       modified: new Date(),
       modifiedBy: Constants.userId,
       name: this.name.value,
@@ -121,5 +134,27 @@ export class DdVariableContainerComponent implements OnInit {
 
   create() {
     this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => console.log(resp));
+  }
+
+  onRespondentChange() {
+    if (this.respondentType.value?.some(type => type === RespondentType.any)) {
+      this.respondentType.setValue([RespondentType.any]);
+    }
+  }
+
+  private getResponseTypes() : RespondentTypeRef[] {
+    return this.respondentType.value!.map(type => {
+      let currType = this.variable.respondentTypeRefs.find(ref => ref.respondentType === type);
+      return {
+        id: currType === undefined ? '' : currType.id,
+        originalId: currType === undefined ? '' : currType.originalId,
+        ddVariableId: this.variable.id,
+        respondentType: type,
+        modified: new Date(),
+        created: currType === undefined ? new Date() : currType.created,
+        modifiedBy: Constants.userId,
+        createdBy: currType === undefined ? Constants.userId : currType.createdBy
+      };
+    })
   }
 }
