@@ -1,0 +1,23 @@
+.selected {
+  background-color: lightgray;
+}
+
+mat-list {
+  max-height: 325px;
+  overflow-y: scroll;
+  mat-list-item:hover {
+    cursor: pointer;
+  }
+}
+
+div {
+  display: flex;
+  margin-bottom: 15px;
+  span {
+    width: 45%;
+  }
+}
+
+button {
+  margin-right: 15px;
+}

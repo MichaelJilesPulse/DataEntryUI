@@ -25,6 +25,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AlertDialogComponent } from './utilities/alert-dialog/alert-dialog.component';
+import { DdVariableContainerComponent } from './dd-variable-container/dd-variable-container.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ConceptSetPickerComponent } from './concept-set-container/concept-set-picker/concept-set-picker.component';
+import { ConceptSetRefManagerComponent } from './concept-set-container/concept-set-ref-manager/concept-set-ref-manager.component';
+import { LongitudinalPeriodManagerComponent } from './dd-variable-container/longitudinal-period-manager/longitudinal-period-manager.component';
+import { DdVariablePickerComponent } from './dd-variable-picker/dd-variable-picker.component';
 
 @NgModule({
   declarations: [
@@ -35,28 +41,34 @@ import { AlertDialogComponent } from './utilities/alert-dialog/alert-dialog.comp
     DdVariableRefManagerComponent,
     ConceptSetContainerComponent,
     EditConceptSetDialogComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    DdVariableContainerComponent,
+    ConceptSetPickerComponent,
+    ConceptSetRefManagerComponent,
+    LongitudinalPeriodManagerComponent,
+    DdVariablePickerComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatListModule,
-    FormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    HttpClientModule,
-    MatTableModule,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatIconModule,
-    DragDropModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatSortModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatListModule,
+        FormsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        MatTableModule,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatIconModule,
+        DragDropModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatSortModule,
+        MatCheckboxModule,
+        MatSlideToggleModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

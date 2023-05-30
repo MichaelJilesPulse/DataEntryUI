@@ -1,0 +1,11 @@
+export enum LongitudinalType {
+  SCREEN = 'SCREEN',
+  REGISTRATION = 'REGISTRATION',
+  START = 'START',
+  END = 'END',
+  FOLLOWUP = 'FOLLOWUP',
+  START_FOLLOWUP_END = 'START_FOLLOWUP_END',
+  FOLLOWUP_END = 'FOLLOWUP_END'
+}
+
+export const FOLLOWUP_TYPES = [LongitudinalType.FOLLOWUP, LongitudinalType.FOLLOWUP_END, LongitudinalType.START_FOLLOWUP_END];

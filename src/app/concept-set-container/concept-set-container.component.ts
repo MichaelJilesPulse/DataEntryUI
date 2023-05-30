@@ -18,16 +18,22 @@ export class ConceptSetContainerComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.conceptService.getConceptSetsForPicker()
-      .subscribe(resp => this.conceptSets = resp);
+    this.getConceptSets();
   }
 
   openDialog(set: ConceptSet | null) {
-    this.dialog.open(EditConceptSetDialogComponent, {
+    const ref = this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
       height: '90vh',
       data: set
     });
+
+    this.getConceptSets();
+  }
+
+  getConceptSets() {
+    this.conceptService.getConceptSetsForPicker()
+      .subscribe(resp => this.conceptSets = resp);
   }
 
 }
