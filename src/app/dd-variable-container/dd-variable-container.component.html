@@ -34,7 +34,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Storage</mat-label>
       <mat-select [formControl]="storage">
-        <mat-option *ngFor="let thing of storageTypes" [value]="thing">{{thing.tablename}}</mat-option>
+        <mat-option *ngFor="let location of storageLocations" [value]="location?.tablename">{{location?.tablename}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -44,7 +44,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Control Type</mat-label>
       <mat-select [formControl]="controlType">
-        <mat-option *ngFor="let type of formControlTypes" [value]="type">{{type}}</mat-option>
+        <mat-option *ngFor="let type of formControlTypes" [value]="type.name">{{type.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -93,10 +93,10 @@
     </mat-form-field>
   </form>
   <div class="actions-container">
-    <button mat-raised-button color="primary" (click)="create()">CREATE</button>
-    <button mat-raised-button color="primary" >UPDATE</button>
-    <button mat-raised-button color="primary" >NEW VERSION</button>
-    <button mat-raised-button color="primary" >CLONE</button>
-    <button mat-raised-button color="secondary">PUBLISH</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id !== undefined" (click)="create()">CREATE</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="update()" >UPDATE</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="createNewVersion()">NEW VERSION</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="clone()">CLONE</button>
+    <button mat-raised-button color="secondary" [disabled]="this.variable.id === undefined">PUBLISH</button>
   </div>
 </div>

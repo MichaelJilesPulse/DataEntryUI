@@ -68,7 +68,7 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
 
     ref.afterClosed().pipe(take(1)).subscribe(ref => {
       this.markAsTouched();
-      if (!this.disabled) {
+      if (!this.disabled && ref !== undefined && ref !== null) {
         this.conceptSets.push({
           id: '',
           conceptSet: ref,

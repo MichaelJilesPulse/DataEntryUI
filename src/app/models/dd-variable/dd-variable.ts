@@ -3,6 +3,7 @@ import {ConceptSetRef} from '../concept/concept-set-ref';
 import {LongitudinalType} from '../../enums/longitudinal-type';
 import {LongitudinalPeriod} from './longitudinal-period';
 import {RespondentTypeRef} from './respondent-type-ref';
+import {FormControlType} from './form-control-type';
 
 export class DdVariable {
   id: string;
@@ -28,4 +29,5 @@ export class DdVariable {
   modified: Date;
   created: Date;
   modifiedBy: string;
+  createdBy: string;
 }

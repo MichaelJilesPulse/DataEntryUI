@@ -12,6 +12,10 @@ import {DdVariable} from '../models/dd-variable/dd-variable';
 
   constructor(private apiClient: ApiClient) {}
 
+  getDataVariable(req: IdRequest) {
+    return this.apiClient.post(this.servicePath + 'get', req).pipe(take(1));
+  }
+
   getAllDataVariables() {
     return this.apiClient.post(this.servicePath + 'get-all', null).pipe(take(1));
   }
