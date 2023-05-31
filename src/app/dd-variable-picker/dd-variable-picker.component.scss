@@ -1,0 +1,12 @@
+mat-list {
+  max-height: 325px;
+  overflow-y: scroll;
+  border: gray 1px solid;
+  mat-list-item {
+    border-bottom: gray 1px solid;
+  }
+  mat-list-item:hover {
+    background-color: lightgray;
+    cursor: pointer;
+  }
+}
