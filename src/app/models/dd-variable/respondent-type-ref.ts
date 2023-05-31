@@ -5,8 +5,8 @@ export class RespondentTypeRef {
   originalId: string;
   respondentType: RespondentType;
   ddVariableId: string;
-  modified: Date;
-  created: Date;
+  modified?: Date;
+  created?: Date;
   modifiedBy: string;
-  createdBy: string;
+  createdBy?: string;
 }

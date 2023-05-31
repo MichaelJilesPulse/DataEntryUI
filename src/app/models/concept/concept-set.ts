@@ -14,6 +14,5 @@ export class ConceptSet {
   modified?: Date;
   created?: Date;
   modifiedBy: string;
-  createdBy: string;
-  deleted?: string;
+  createdBy?: string;
 }
