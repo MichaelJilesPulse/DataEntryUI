@@ -1,8 +1,8 @@
 export class LongitudinalPeriod {
   period: number;
   unit: string;
-  createdBy: string;
-  created: Date;
+  createdBy?: string;
+  created?: Date;
   modifiedBy: string;
-  modified: Date;
+  modified?: Date;
 }

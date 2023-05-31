@@ -8,9 +8,9 @@ export class Concept {
   sortOrder: number = 0;
   defaultLabel: string;
   modified: Date;
-  created: Date;
-  modifiedBy: string;
-  createdBy: string;
+  created?: Date;
+  modifiedBy?: string;
+  createdBy?: string;
 
   constructor(item: LookupItem) {
     this.numericValue = 0;

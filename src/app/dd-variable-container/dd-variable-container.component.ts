@@ -148,7 +148,6 @@ export class DdVariableContainerComponent implements OnInit {
       baseEpilogue: this.epilogue.value,
       baseInitializer: this.initializer.value,
       basePrologue: this.prologue.value,
-      created: new Date(),
       formControlOptions: this.controlOptions.value,
       formControlType: this.controlType.value,
       id: this.id.value,
@@ -156,9 +155,7 @@ export class DdVariableContainerComponent implements OnInit {
       longitudinalPeriods: this.longitudinalPeriods.value!,
       longitudinalType: this.longitudinalType.value!,
       respondentTypeRefs: this.getResponseTypes(),
-      modified: new Date(),
       modifiedBy: Constants.userId,
-      createdBy: Constants.userId,
       name: this.name.value,
       notes: this.notes.value,
       originalId: this.originalId.value,
@@ -199,16 +196,19 @@ export class DdVariableContainerComponent implements OnInit {
 
   private getResponseTypes() : RespondentTypeRef[] {
     return this.respondentType.value!.map(type => {
-      let currType = this.variable.respondentTypeRefs.find(ref => ref.respondentType === type);
+      console.log(this.respondentType.value);
+      console.log(this.variable.respondentTypeRefs);
+      let currType : RespondentTypeRef | undefined = this.variable.respondentTypeRefs.find(ref => ref.respondentType === type);
+      currType = currType === undefined ? new RespondentTypeRef() : currType;
       return {
-        id: currType === undefined ? '' : currType.id,
-        originalId: currType === undefined ? '' : currType.originalId,
+        id: currType.id,
+        originalId: currType.originalId,
         ddVariableId: this.variable.id,
         respondentType: type,
-        modified: new Date(),
-        created: currType === undefined ? new Date() : currType.created,
         modifiedBy: Constants.userId,
-        createdBy: currType === undefined ? Constants.userId : currType.createdBy
+        modified: currType.modified,
+        created: currType.created,
+        createdBy: currType.createdBy
       };
     })
   }

@@ -26,8 +26,8 @@ export class DdVariable {
   notes: string;
   published?: Date;
   assignedTo: string;
-  modified: Date;
-  created: Date;
+  modified?: Date;
+  created?: Date;
   modifiedBy: string;
-  createdBy: string;
+  createdBy?: string;
 }

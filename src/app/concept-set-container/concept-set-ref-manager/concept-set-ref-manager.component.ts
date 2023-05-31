@@ -76,9 +76,6 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
           omopConceptId: '',
           published: undefined,
           modifiedBy: Constants.userId,
-          createdBy: Constants.userId,
-          created: new Date(),
-          modified: new Date()
         });
         this.onChange(this.conceptSets);
       }

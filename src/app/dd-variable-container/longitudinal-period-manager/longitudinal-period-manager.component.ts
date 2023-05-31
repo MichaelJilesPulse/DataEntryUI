@@ -61,9 +61,6 @@ export class LongitudinalPeriodManagerComponent implements OnInit, ControlValueA
     if (!this.disabled) {
       this.periods.push({
         period: this.period.value!,
-        created: new Date(),
-        createdBy: Constants.userId,
-        modified: new Date(),
         modifiedBy: Constants.userId,
         unit: this.unit.value!
       });

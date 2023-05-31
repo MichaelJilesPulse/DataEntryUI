@@ -269,8 +269,7 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
       }),
       published: this.published.value,
       assignedTo: this.assignedTo.value,
-      modifiedBy: Constants.userId,
-      createdBy: Constants.userId
+      modifiedBy: Constants.userId
     };
   }
 }

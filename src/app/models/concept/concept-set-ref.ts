@@ -7,7 +7,7 @@ export class ConceptSetRef {
   omopConceptId: string;
   published?: Date;
   modifiedBy: string;
-  createdBy: string;
-  created: Date;
-  modified: Date;
+  createdBy?: string;
+  created?: Date;
+  modified?: Date;
 }
