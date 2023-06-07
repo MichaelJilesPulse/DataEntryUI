@@ -1,3 +1,28 @@
+.concept-ref-manager {
+  display: flex;
+  justify-content: space-evenly;
+  mat-table {
+    width: 55%;
+    height: 300px;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    button {
+      margin-bottom: 10px;
+      width: 60%;
+    }
+  }
+  app-dd-variable-picker {
+    width: 30%;
+    height: 335px;
+  }
+}
+
 .dd-ref-list {
   width: 500px;
   max-width: 100%;

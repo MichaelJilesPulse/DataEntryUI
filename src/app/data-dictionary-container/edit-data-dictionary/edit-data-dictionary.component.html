@@ -1,20 +1,46 @@
 <form [formGroup]="form" id="dictionary-form">
   <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [formControl]="name">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>Dictionary ID</mat-label>
     <input matInput placeholder="Dictionary ID" [formControl]="id">
     <mat-error *ngIf="id.errors">Required</mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>Dictionary Name</mat-label>
-    <input matInput placeholder="Dictionary Name" [formControl]="name">
-    <mat-error *ngIf="name.errors">Required</mat-error>
+    <mat-label>RegName</mat-label>
+    <input matInput placeholder="RegName" [formControl]=regName>
   </mat-form-field>
-  <app-dd-variable-ref-manager
-    [formArrayName]="'variableRefs'"
-    [ddVariables]="dictionary.variableRefs"
-    (ddVariablesEmitter)="refsChanged($event)"
-  ></app-dd-variable-ref-manager>
+  <mat-form-field appearance="fill">
+    <mat-label>Original ID</mat-label>
+    <input matInput placeholder="originalId" [formControl]="originalId">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Notes</mat-label>
+    <textarea matInput placeholder="Notes" [formControl]="notes"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Copied From</mat-label>
+    <input matInput placeholder="Copied From" [formControl]="copiedFrom">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Published</mat-label>
+    <input matInput placeholder="Published" [formControl]="published">
+  </mat-form-field>
+  <div class="ref-manager-container">
+    <app-dd-variable-ref-manager
+      [formControl]="variableRefs"
+    ></app-dd-variable-ref-manager>
+  </div>
   <mat-error *ngIf="variableRefs.errors">Required</mat-error>
-
 </form>
-<button mat-raised-button [disabled]="!form.valid" color="primary" (click)="save()">SAVE</button>
+
+<div class="actions-container">
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="emit(actions.CREATE)">CREATE</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="emit(actions.UPDATE)">UPDATE</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="emit(actions.NEW_VERSION)">NEW VERSION</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="emit(actions.CLONE)">CLONE</button>
+  <button mat-raised-button color="secondary" [disabled]="!form.valid" (click)="emit(actions.PUBLISH)">PUBLISH</button>
+  <button mat-raised-button color="warn" (click)="onCancel()">CANCEL</button>
+</div>

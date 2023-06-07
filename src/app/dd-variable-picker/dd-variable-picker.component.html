@@ -1,4 +1,7 @@
 <mat-list>
-  <mat-list-item *ngFor="let variable of ddVariables" (click)="selectVariable(variable)">{{variable.name}}</mat-list-item>
+  <span *ngFor="let variable of ddVariables">
+    <mat-checkbox *ngIf="multiSelect" (click)="selectVariable(variable)"></mat-checkbox>
+    <mat-list-item (dblclick)="editVariable(variable)">{{variable.name}}</mat-list-item>
+  </span>
 </mat-list>
 <button mat-raised-button color="primary" (click)="createVariable()">CREATE</button>

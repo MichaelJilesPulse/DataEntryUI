@@ -1,5 +1,30 @@
-<div cdkDropList class="dd-ref-list" (cdkDropListDropped)="drop($event)">
-  <div cdkDrag *ngFor="let ref of ddVariables" class="ref-variable">
-    {{ref.id}}
+<div class="concept-ref-manager">
+  <mat-table #variableSort='matSort' matSort [dataSource]="dataSource" cdkDropList (cdkDropListDropped)="onListDrop($event)">
+    <ng-container matColumnDef="selected">
+      <mat-header-cell *matHeaderCellDef> <mat-checkbox (change)="selectAllVariables($event)"></mat-checkbox></mat-header-cell>
+      <mat-header-cell *matCellDef="let variable"><mat-checkbox [(ngModel)]="variable.selected" (change)="variable.selected = true"></mat-checkbox></mat-header-cell>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
+      <mat-cell *matCellDef="let variable">{{variable.value.ddVariableId}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+      <mat-cell *matCellDef="let variable">{{variable.value.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sortPos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> SortPos</mat-header-cell>
+      <mat-cell *matCellDef="let variable">{{variable.value.sortPos}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="column"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: column" cdkDrag></mat-row>
+  </mat-table>
+
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="addDdVariables()">ADD</button>
+    <button mat-raised-button color="warn" (click)="removeDdVariable()">REMOVE</button>
+    <button mat-raised-button color="primary" (click)="assignOrder()">ASSIGN ORDER</button>
   </div>
+  <app-dd-variable-picker (selectedVariablesEmitter)="selectedVariables = $event"></app-dd-variable-picker>
 </div>
