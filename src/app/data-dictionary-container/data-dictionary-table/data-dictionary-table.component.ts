@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {DataDictionary} from '../../models/data-dictionary/data-dictionary';
@@ -21,7 +21,11 @@ export class DataDictionaryTableComponent implements OnInit, AfterViewInit {
       this.dictionaries.data = value;
     }
   }
+
+  @Output()
+  dictionaryEmitter = new EventEmitter<DataDictionary>();
   dictionaries: MatTableDataSource<DataDictionary>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['id', 'name', 'published' ];
 
@@ -32,6 +36,10 @@ export class DataDictionaryTableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dictionaries.paginator = this.paginator;
+  }
+
+  selectDictionary(dict: DataDictionary) {
+    this.dictionaryEmitter.emit(dict);
   }
 
 }

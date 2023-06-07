@@ -1,8 +1,41 @@
-#dictionary-form {
+form {
+  mat-form-field, mat-slide-toggle {
+    width: 49%;
+    padding-right: 10px;
+    textarea {
+      height: 98px;
+      max-height: 98px;
+    }
+  }
+}
+
+.ref-manager-container {
+  app-dd-variable-ref-manager {
+    width: 55%;
+    height: 300px;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    button {
+      margin-bottom: 10px;
+      width: 60%;
+    }
+  }
+  app-dd-variable-picker {
+    width: 30%;
+    height: 335px;
+  }
+}
+
+.actions-container {
   display: flex;
-  flex-direction: column;
-  width: 40%;
-  mat-form-field {
-    margin-bottom: 15px;
+  align-items: center;
+  button {
+    margin-left: 20px;
   }
 }

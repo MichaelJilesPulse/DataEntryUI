@@ -3,6 +3,6 @@
   <div class="table-header">
     <button mat-raised-button color="primary" (click)="onCreate()">CREATE</button>
   </div>
-  <app-data-dictionary-table [dataDictionaries]="dictionaries"></app-data-dictionary-table>
+  <app-data-dictionary-table [dataDictionaries]="dictionaries" (dictionaryEmitter)="onSelectDict($event)"></app-data-dictionary-table>
 </div>
-<app-edit-data-dictionary *ngIf="editingDictionary" (onSave)="onSave()"></app-edit-data-dictionary>
+<app-edit-data-dictionary *ngIf="editingDictionary" [dictionary]="selectedDictionary" (onSave)="onCloseEdit($event)"></app-edit-data-dictionary>

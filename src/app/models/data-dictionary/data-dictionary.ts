@@ -1,9 +1,18 @@
 import {DataDictionaryVariableRef} from './data-dictionary-variable-ref';
+import {DdVariableRef} from '../dd-variable/dd-variable-ref';
 
 export class DataDictionary {
-  id: string;
+  id: string = '';
   originalId: string;
   published: Date;
   name: string;
-  variableRefs: DataDictionaryVariableRef[] = [];
+  regname: string;
+  notes: string;
+  assignedTo: string;
+  copiedFromId: string;
+  variables: DdVariableRef[] = [];
+  created?: Date;
+  modified?: Date;
+  createdBy?: string;
+  modifiedBy: string;
 }
