@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DdVariable} from '../models/dd-variable/dd-variable';
 import {ConceptSetRef} from '../models/concept/concept-set-ref';
 import {FOLLOWUP_TYPES, LongitudinalType} from '../enums/longitudinal-type';
@@ -93,6 +93,7 @@ export class DdVariableContainerComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
               public dialog: MatDialog,
+              public dialogRef: MatDialogRef<DdVariableContainerComponent>,
               public ddVariableService: DdVariableService,
               public dataService: CanonicalDataService,
               @Inject(MAT_DIALOG_DATA) public variable: DdVariable) { }
@@ -169,23 +170,28 @@ export class DdVariableContainerComponent implements OnInit {
   }
 
   create() {
-    this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => console.log(resp));
+    this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => this.dialogRef.close(resp));
   }
 
   update() {
     let req = this.buildDdVariable();
     req.createdBy = this.variable.createdBy;
-    this.ddVariableService.updateDDVariable(req).subscribe(thing => console.log(thing));
+    this.ddVariableService.updateDDVariable(req).subscribe(resp => this.dialogRef.close(resp));
   }
 
   createNewVersion() {
     let req = this.buildDdVariable();
-    this.ddVariableService.createNewDDVariableVersion(req).subscribe(thing => console.log(thing));
+    this.ddVariableService.createNewDDVariableVersion(req).subscribe(resp => this.dialogRef.close(resp));
   }
 
   clone() {
     let req = this.buildDdVariable();
-    this.ddVariableService.cloneDDVariable(req).subscribe(thing => console.log(thing));
+    this.ddVariableService.cloneDDVariable(req).subscribe(resp => this.dialogRef.close(resp));
+  }
+
+  publish() {
+    let req = this.buildDdVariable();
+    this.ddVariableService.publish(req).subscribe(resp => this.dialogRef.close(resp));
   }
 
   onRespondentChange() {

@@ -15,16 +15,16 @@ export class DataDictionaryTableComponent implements OnInit, AfterViewInit {
 
   @Input()
   public set dataDictionaries(value: DataDictionary[]) {
-    if (this.dictionaries === undefined) {
-      this.dictionaries = new MatTableDataSource<DataDictionary>(value);
-    } else {
-      this.dictionaries.data = value;
+    if (value !==undefined) {
+      this.dictionaries = new MatTableDataSource<DataDictionary>([]);
+      this.dictionaries.data = [...value];
+      this.dictionaries.paginator = this.paginator;
     }
   }
 
   @Output()
   dictionaryEmitter = new EventEmitter<DataDictionary>();
-  dictionaries: MatTableDataSource<DataDictionary>;
+  dictionaries: MatTableDataSource<DataDictionary> = new MatTableDataSource<DataDictionary>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns: string[] = ['id', 'name', 'published' ];

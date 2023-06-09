@@ -40,5 +40,9 @@ import {DdVariable} from '../models/dd-variable/dd-variable';
     return this.apiClient.post(this.servicePath + 'create-new-version', req).pipe(take(1));
   }
 
+  publish(req: DdVariable) {
+    return this.apiClient.post(this.servicePath + 'publish', req).pipe(take(1));
+  }
+
 
 }
