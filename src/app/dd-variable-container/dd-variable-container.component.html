@@ -97,6 +97,6 @@
     <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="update()" >UPDATE</button>
     <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="createNewVersion()">NEW VERSION</button>
     <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="clone()">CLONE</button>
-    <button mat-raised-button color="secondary" [disabled]="this.variable.id === undefined">PUBLISH</button>
+    <button mat-raised-button color="secondary" [disabled]="this.variable.id === undefined" (click)="publish()">PUBLISH</button>
   </div>
 </div>

@@ -3,6 +3,7 @@ import {DdVariable} from '../models/dd-variable/dd-variable';
 import {DdVariableService} from '../services/dd-variable-service';
 import {MatDialog} from '@angular/material/dialog';
 import {DdVariableContainerComponent} from '../dd-variable-container/dd-variable-container.component';
+import {take} from 'rxjs';
 
 @Component({
   selector: 'app-dd-variable-picker',
@@ -26,10 +27,15 @@ export class DdVariablePickerComponent implements OnInit {
   }
 
   editVariable(variable: DdVariable) {
-    this.dialog.open(DdVariableContainerComponent, {
+    const ref = this.dialog.open(DdVariableContainerComponent, {
       data: variable,
       width: '95vw',
       height: '90vh'
+    });
+    ref.afterClosed().pipe(take(1)).subscribe(resp => {
+      if (resp !== undefined) {
+        this.updateDdVariables(resp);
+      }
     });
   }
 
@@ -43,11 +49,27 @@ export class DdVariablePickerComponent implements OnInit {
   }
 
   createVariable() {
-    this.dialog.open(DdVariableContainerComponent, {
+    const ref = this.dialog.open(DdVariableContainerComponent, {
       data: null,
       width: '95vw',
       height: '90vh'
     });
+
+    ref.afterClosed().pipe(take(1)).subscribe(resp => {
+      if (resp !== undefined) {
+        this.updateDdVariables(resp);
+      }
+    });
+  }
+
+  updateDdVariables(req: DdVariable) {
+    const index = this.ddVariables.findIndex(variable => variable.id = req.id);
+    if (index !== -1) {
+      this.ddVariables[index] = req;
+    } else {
+      this.ddVariables.push(req);
+    }
+    this.ddVariables = [...this.ddVariables];
   }
 
 }

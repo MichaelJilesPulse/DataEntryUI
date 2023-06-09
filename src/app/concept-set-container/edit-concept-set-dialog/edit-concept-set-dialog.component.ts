@@ -249,7 +249,7 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
     req.createdBy = this.data.createdBy;
     req.published = new Date(Date.now());
 
-    this.conceptService.updateConceptSet(req).subscribe(thing => console.log(thing));
+    this.conceptService.updateConceptSet(req).subscribe(thing => this.dialogRef.close(thing));
   }
 
   buildConceptSet() : ConceptSet {

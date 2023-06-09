@@ -34,7 +34,9 @@ export class ConceptSetPickerComponent implements OnInit {
     });
 
     ref.afterClosed().subscribe(result => {
-      this.conceptSets.push(result);
+      if (result !== undefined) {
+        this.conceptSets.push(result);
+      }
     })
   }
 
