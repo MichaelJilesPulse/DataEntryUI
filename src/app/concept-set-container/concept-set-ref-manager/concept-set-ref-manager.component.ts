@@ -56,14 +56,16 @@ export class ConceptSetRefManagerComponent implements OnInit, ControlValueAccess
     this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
       height: '90vh',
-      data: set
+      data: set,
+      disableClose: true
     });
   }
 
   pickConceptSet() {
     const ref = this.dialog.open(ConceptSetPickerComponent, {
       width: '1000px',
-      height: '500px'
+      height: '500px',
+      disableClose: true
     });
 
     ref.afterClosed().pipe(take(1)).subscribe(ref => {

@@ -121,8 +121,6 @@ export class DdVariableRefManagerComponent implements OnInit, ControlValueAccess
       });
     }
     this.writeValue(this.ddVariables);
-
-    console.log(this.ddVariables)
   }
 
   buildDataSource() {

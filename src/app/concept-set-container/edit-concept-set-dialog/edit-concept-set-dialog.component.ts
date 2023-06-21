@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Inject, Input, OnInit, ViewChild} from '@angul
 import {Concept} from '../../models/concept/concept';
 import {ConceptSet} from '../../models/concept/concept-set';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {ConceptService} from '../../services/concept-service';
 import {take} from 'rxjs';
@@ -27,7 +27,7 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
 
   conceptSortTypes = ConceptSetSortType;
 
-  name: FormControl = new FormControl('', Validators.required);
+  name: FormControl = new FormControl('',[Validators.required]);
   description: FormControl = new FormControl('');
   assignedTo: FormControl = new FormControl('');
   id: FormControl = new FormControl('');
@@ -52,12 +52,23 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
 
   searchQuery: string = '';
 
+  form = this.fb.group({
+    id: this.id,
+    name: this.name,
+    description: this.description,
+    assignedTo: this.assignedTo,
+    originalId: this.originalId,
+    sortType: this.sortType,
+    published: this.published
+  });
+
   constructor(
     public dialogRef: MatDialogRef<EditConceptSetDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConceptSet,
     private conceptService: ConceptService,
     private lookupService: LookupService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -103,6 +114,22 @@ export class EditConceptSetDialogComponent implements OnInit, AfterViewInit {
         default: return item.value.sortOrder;
       }
     }
+  }
+
+  setValid() {
+    return this.setConcepts.data.length > 0 && this.form.valid;
+  }
+
+  createValid() {
+    return this.id.value === '' && this.setValid();
+  }
+
+  editValid() {
+    return this.id.value !== '' && this.setValid();
+  }
+
+  publishValid() {
+    return this.published.value === '' && this.setValid() && this.id.value !== '';
   }
 
   add() {

@@ -30,7 +30,8 @@ export class DdVariablePickerComponent implements OnInit {
     const ref = this.dialog.open(DdVariableContainerComponent, {
       data: variable,
       width: '95vw',
-      height: '90vh'
+      height: '90vh',
+      disableClose: true
     });
     ref.afterClosed().pipe(take(1)).subscribe(resp => {
       if (resp !== undefined) {
@@ -52,7 +53,8 @@ export class DdVariablePickerComponent implements OnInit {
     const ref = this.dialog.open(DdVariableContainerComponent, {
       data: null,
       width: '95vw',
-      height: '90vh'
+      height: '90vh',
+      disableClose: true
     });
 
     ref.afterClosed().pipe(take(1)).subscribe(resp => {

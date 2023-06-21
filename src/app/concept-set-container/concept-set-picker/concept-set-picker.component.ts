@@ -30,7 +30,8 @@ export class ConceptSetPickerComponent implements OnInit {
     const ref = this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
       height: '90vh',
-      data: null
+      data: null,
+      disableClose: true
     });
 
     ref.afterClosed().subscribe(result => {

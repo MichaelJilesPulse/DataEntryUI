@@ -11,37 +11,55 @@
   }
 }
 
-.concept-table {
-  width: 45%;
-  height: 100%;
-  overflow: scroll;
-  .mat-column-sortOrder {
-    max-width: 10%;
-  }
-  .mat-column-omopConceptId {
-    max-width: 25%;
-  }
-  .mat-column-selection {
-    max-width: 10%;
-  }
-}
-
-.lookup-table {
-  width: 45%;
-  height: 100%;
-  overflow: scroll;
-  .mat-column-selection {
-    max-width: 10%;
-  }
+div {
+  position: relative;
 }
 
 .concept-manager-container {
   display: flex;
   height: 50%;
   margin-bottom: 30px;
+  .concept-table {
+    width: 45%;
+    height: 100%;
+    overflow: scroll;
+    .mat-column-sortOrder {
+      max-width: 10%;
+    }
+    .mat-column-omopConceptId {
+      max-width: 25%;
+    }
+    .mat-column-selection {
+      max-width: 10%;
+    }
+  }
+
+  .lookup-table {
+    width: 45%;
+    height: 100%;
+    overflow: scroll;
+    .mat-column-selection {
+      max-width: 10%;
+    }
+  }
   div {
     margin: 10px;
   }
+}
+
+mat-row:hover {
+  cursor: move;
+}
+
+#close-button {
+  color: red;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-weight: bold;
+}
+#close-button:hover {
+  cursor: pointer;
 }
 .actions-container {
   display: flex;

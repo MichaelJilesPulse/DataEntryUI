@@ -1,5 +1,18 @@
 div {
-  width: 75%;
+  padding-right: 25%;
+  position: relative;
+}
+
+#close-button {
+  color: red;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-weight: bold;
+}
+
+#close-button:hover {
+  cursor: pointer;
 }
 
 form {
