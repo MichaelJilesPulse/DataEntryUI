@@ -108,7 +108,6 @@ export class DdVariableContainerComponent implements OnInit {
 
     if (this.variable !== null && this.variable !== undefined) {
       this.ddVariableService.getDataVariable({id: this.variable.id}).subscribe(variable => {
-        console.log(variable);
         this.variable = variable;
         this.name.setValue(this.variable.name);
         this.variableName.setValue(this.variable.localVariableName);
@@ -169,6 +168,18 @@ export class DdVariableContainerComponent implements OnInit {
     };
   }
 
+  createValid() {
+    return this.id.value === '' && this.form.valid;
+  }
+
+  updateValid() {
+    return this.id.value !== '' && this.form.valid;
+  }
+
+  publishValid() {
+    return this.published.value === null && this.id.value !== '' && this.form.valid;
+  }
+
   create() {
     this.ddVariableService.createDDVariable(this.buildDdVariable()).subscribe(resp => this.dialogRef.close(resp));
   }
@@ -202,8 +213,6 @@ export class DdVariableContainerComponent implements OnInit {
 
   private getResponseTypes() : RespondentTypeRef[] {
     return this.respondentType.value!.map(type => {
-      console.log(this.respondentType.value);
-      console.log(this.variable.respondentTypeRefs);
       let currType : RespondentTypeRef | undefined = this.variable.respondentTypeRefs.find(ref => ref.respondentType === type);
       currType = currType === undefined ? new RespondentTypeRef() : currType;
       return {

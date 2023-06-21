@@ -25,7 +25,8 @@ export class ConceptSetContainerComponent implements OnInit {
     const ref = this.dialog.open(EditConceptSetDialogComponent, {
       width: '90vw',
       height: '90vh',
-      data: set
+      data: set,
+      disableClose: true
     });
 
     this.getConceptSets();

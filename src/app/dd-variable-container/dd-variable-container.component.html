@@ -1,4 +1,5 @@
 <div>
+  <mat-icon id="close-button" mat-dialog-close>close</mat-icon>
   <form [formGroup]="form">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
@@ -93,10 +94,10 @@
     </mat-form-field>
   </form>
   <div class="actions-container">
-    <button mat-raised-button color="primary" [disabled]="this.variable.id !== undefined" (click)="create()">CREATE</button>
-    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="update()" >UPDATE</button>
-    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="createNewVersion()">NEW VERSION</button>
-    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="clone()">CLONE</button>
-    <button mat-raised-button color="secondary" [disabled]="this.variable.id === undefined" (click)="publish()">PUBLISH</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id !== undefined" (click)="create()" [disabled]="!createValid()">CREATE</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="update()" [disabled]="!updateValid()">UPDATE</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="createNewVersion()" [disabled]="!updateValid()">NEW VERSION</button>
+    <button mat-raised-button color="primary" [disabled]="this.variable.id === undefined" (click)="clone()" [disabled]="!updateValid()">CLONE</button>
+    <button mat-raised-button color="secondary" [disabled]="this.variable.id === undefined" (click)="publish()" [disabled]="!publishValid()">PUBLISH</button>
   </div>
 </div>

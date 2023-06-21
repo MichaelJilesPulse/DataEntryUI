@@ -59,7 +59,6 @@ export class EditDataDictionaryComponent implements OnInit, OnDestroy{
     if (this.dictionary.id !== '') {
       this.dictionaryService.getDataDictionary({id: this.dictionary.id}).subscribe(dict => {
         this.dictionary = dict;
-        console.log(this.dictionary);
         this.id.setValue(this.dictionary.id);
         this.name.setValue(this.dictionary.name);
         this.regName.setValue(this.dictionary.regname);

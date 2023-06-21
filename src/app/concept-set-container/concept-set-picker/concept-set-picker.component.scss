@@ -2,6 +2,17 @@
   background-color: lightgray;
 }
 
+#close-button {
+  color: red;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-weight: bold;
+}
+#close-button:hover {
+  cursor: pointer;
+}
+
 mat-list {
   max-height: 325px;
   overflow-y: scroll;
@@ -13,6 +24,7 @@ mat-list {
 div {
   display: flex;
   margin-bottom: 15px;
+  position: relative;
   span {
     width: 45%;
   }
